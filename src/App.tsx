@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState, useEffect } from 'react'
 import { Idata } from './interfaces'
 
 
@@ -15,14 +15,17 @@ const App = (): JSX.Element => {
       title: "Usman Imperia", id: 3,
     }
   ]
-  const [title, setTitle] = useState<string>("f")
+  const [title, setTitle] = useState<string>("")
   const [arr, setArr] = useState<Idata[]>(data)
+
   const changeHandler = (evt: ChangeEvent<HTMLInputElement>): void => {
     setTitle(evt.target.value)
   }
   console.log(title);
 
-
+  useEffect(() => {
+    localStorage.setItem("array", JSON.stringify(arr))
+  }, [arr])
 
   const submit = (): void => {
     if (!title.length) return;
